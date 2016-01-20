@@ -24688,6 +24688,14 @@
 	      });
 	    }
 	  }, {
+	    key: 'handleRemoveNote',
+	    value: function handleRemoveNote(input) {
+	      this.state.notes.splice(input.index, 1);
+	      base.post(this.props.params.username, {
+	        data: this.state.notes
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -24713,6 +24721,9 @@
 	            notes: this.state.notes,
 	            addNote: function addNote(newNote) {
 	              return _this2.handleAddNote(newNote);
+	            },
+	            removeNote: function removeNote(index) {
+	              return _this2.handleRemoveNote(index);
 	            }
 	          })
 	        )
@@ -25100,6 +25111,7 @@
 	  _createClass(Notes, [{
 	    key: 'render',
 	    value: function render() {
+	      console.log(this.props.removeNote);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -25110,7 +25122,7 @@
 	          this.props.username
 	        ),
 	        _react2.default.createElement(_AddNote2.default, { username: this.props.username, addNote: this.props.addNote }),
-	        _react2.default.createElement(_NotesList2.default, { notes: this.props.notes })
+	        _react2.default.createElement(_NotesList2.default, { notes: this.props.notes, removeNote: this.props.removeNote })
 	      );
 	    }
 	  }]);
@@ -25180,8 +25192,15 @@
 	  }
 
 	  _createClass(NotesList, [{
+	    key: "handleRemove",
+	    value: function handleRemove(index) {
+	      this.props.removeNote(index);
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
+	      var _this2 = this;
+
 	      var notes = this.props.notes;
 
 	      return _react2.default.createElement(
@@ -25190,7 +25209,9 @@
 	        notes.map(function (note, index) {
 	          return _react2.default.createElement(
 	            "li",
-	            { className: "list-group-item", key: index },
+	            { onClick: function onClick() {
+	                return _this2.handleRemove({ index: index });
+	              }, className: "list-group-item", key: index },
 	            " ",
 	            note
 	          );

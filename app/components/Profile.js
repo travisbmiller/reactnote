@@ -46,6 +46,12 @@ class Profile extends React.Component {
       data: this.state.notes.concat([newNote])
     })
   }
+  handleRemoveNote(input) {
+    this.state.notes.splice(input.index, 1)
+    base.post(this.props.params.username, {
+      data: this.state.notes
+    })
+  }
   render(){
     return (
       <div className="row">
@@ -60,6 +66,7 @@ class Profile extends React.Component {
           username={this.state.bio.name} 
           notes={this.state.notes} 
           addNote={(newNote) => this.handleAddNote(newNote)}
+          removeNote={(index) => this.handleRemoveNote(index)}
           />
         </div>
       </div>

@@ -1,12 +1,15 @@
 import React from 'react';
 
 class NotesList extends React.Component {
+  handleRemove(index) {
+    this.props.removeNote(index);
+  }
   render(){
     const { notes } = this.props;
     return (
       <ul className="list-group">
         {notes.map((note, index) => ( 
-          <li className="list-group-item" key={index}> {note}</li>
+          <li onClick={() => this.handleRemove({index})} className="list-group-item" key={index}> {note}</li>
         ))}
       </ul>
     )
