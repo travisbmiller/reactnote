@@ -5,20 +5,20 @@ import Notes from './notes/Notes';
 import getGithubInfo from '../unils/helpers';
 import Rebase from 're-base';
 
-const base = Rebase.createClass('https://rgnt.firebaseio.com/')
+const base = Rebase.createClass('https://rgnt.firebaseio.com/');
 
 class Profile extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       notes: [],
       bio: {},
       repos: []
-    }
+    };
   }
   componentWillReceiveProps(nextProps) {
     base.removeBinding(this.ref);
-    this.init(nextProps.params.username)
+    this.init(nextProps.params.username);
   }
   init(username) {
     this.ref = base.bindToState(username, {
@@ -32,8 +32,8 @@ class Profile extends React.Component {
         this.setState({
           bio: data.bio,
           repos: data.repos
-        })
-      }.bind(this))   
+        });
+      }.bind(this)); 
   }
   componentDidMount() {
     this.init(this.props.params.username); 
@@ -44,13 +44,13 @@ class Profile extends React.Component {
   handleAddNote(newNote) {
     base.post(this.props.params.username, {
       data: this.state.notes.concat([newNote])
-    })
+    });
   }
   handleRemoveNote(input) {
-    this.state.notes.splice(input.index, 1)
+    this.state.notes.splice(input.index, 1);
     base.post(this.props.params.username, {
       data: this.state.notes
-    })
+    });
   }
   render(){
     return (
@@ -70,7 +70,7 @@ class Profile extends React.Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
