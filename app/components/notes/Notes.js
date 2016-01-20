@@ -9,7 +9,6 @@ var Notes = React.createClass({
     addNote: React.PropTypes.func.isRequired
   },
   render: function () {
-    console.log('notes:', this.props.notes);
     return (
       <div>
         <h3>Notes for {this.props.username}</h3>
